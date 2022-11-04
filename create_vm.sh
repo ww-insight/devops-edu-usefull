@@ -4,11 +4,11 @@ VM_USER=$2
 VM_PASS=$3
 
 # Download debian.iso
-if [ ! -f ./ubuntu-20.04.4-live-server-amd64.iso ]; then
-    wget https://releases.ubuntu.com/20.04/ubuntu-20.04.4-live-server-amd64.iso
+if [ ! -f ./debian-11.5.0-amd64-netinst.iso ]; then
+    wget https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-11.5.0-amd64-netinst.iso
 fi
 #Create VM
-VBoxManage createvm --name $VM_NAME --ostype "Other_64" --register --basefolder `pwd`
+VBoxManage createvm --name $VM_NAME --ostype "Debian_64" --register --basefolder `pwd`
 #Set memory and network
 VBoxManage modifyvm $VM_NAME --ioapic on
 VBoxManage modifyvm $VM_NAME --memory 2048 --vram 128 --cpus 2
@@ -24,6 +24,6 @@ VBoxManage storageattach $VM_NAME --storagectl "SATA Controller" --port 0 --devi
 VBoxManage modifyvm $VM_NAME --vrde on
 VBoxManage modifyvm $VM_NAME --vrdemulticon on --vrdeport 10001
 #Install OS
-VBoxManage unattended install $VM_NAME --iso=ubuntu-20.04.4-live-server-amd64.iso --user=$VM_USER --password=$VM_PASS
+VBoxManage unattended install $VM_NAME --iso=debian-11.5.0-amd64-netinst.iso --user=$VM_USER --password=$VM_PASS
 #Start the VM
 #VBoxHeadless --startvm $VM_NAME
